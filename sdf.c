@@ -104,7 +104,6 @@ int main()
  }
 
 
- //10求整数平方
  #include <stdio.h>
  int main()
  {  

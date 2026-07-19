@@ -4,7 +4,7 @@ print("hello world")
 print()
 print("abc")
 print("abc")
-git clone
+git clone git@github.com:wei-keyu/pythonnotes.git
 git status
 git add 文件名
 git commit -a
