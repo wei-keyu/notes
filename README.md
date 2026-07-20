@@ -18,3 +18,5 @@ git revert id(2ef  and so on)
 linux http服务器软件：nginx（多线程）  apache2（httpd）
 
 c+s+b    or   gcc
+
+
