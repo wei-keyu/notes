@@ -1,0 +1,356 @@
+#include <stdio.h>
+int main()
+{
+    printf("hello world");
+    return 0;
+}
+
+#include <stdio.h>
+int main()
+{
+    printf("change world");
+    return 0;
+}
+
+//字符型：单引号括起来的
+#include <stdio.h>
+int main()
+{
+    char ch = 'a';       //数据类型 变量 = 赋值
+
+    printf("%c\n",ch);
+    
+    return 0;
+}
+
+//整形     short    int   long    long long     前缀unsigned
+#include <stdio.h>
+int main()
+{
+    short sh = 10;
+
+    printf("%d\n,sh");
+
+    return 0;
+}
+
+//浮点型： float   double  long double
+#include <stdio.h>
+int main()
+{
+    float f = 12.5f;
+
+    printf("%f\n",f);
+
+    return 0;
+}
+
+//布尔类型：  0 为假，非 0 为真
+#include <stdio.h>
+#include <stdbool.h>
+int main()
+{
+    _Bool flg = true;
+    if(flg)
+    {
+        printf("it is true");
+
+        return 0;       //return写到main函数括号里，而不是if语句里
+    }
+    return 0;
+}
+
+//数据类型的大小  sizeof
+#include <stdio.h>
+int main()
+{
+    int a = 1;
+
+    print("%d\n",sizeof(a));           //用的%zu
+
+    return 0 ;           //return 0 写完了吗？ 是的，写完了，要加;
+}
+
+//10,2,8,16进制的转换
+//原码，反码，补码
+//变量分类
+#include <stdio.h>
+int n = 1000;
+
+int main()
+{
+    int n = 10;
+
+    printf("%d\n",n);
+
+    return 0;
+}          //同名时候，局部变量优先
+
+//常量：字符型，整数，小数，字符串
+
+//类型转换
+#include <stdio.h>
+int main()
+{
+    float a = 19.6f;
+    int b = a;
+
+    printf("%d\n",b);
+
+    return 0;
+}
+
+#include <stdio.h>
+int main()
+{
+    float a = 19.6f;
+    int b = (int)a;
+
+    printf("%d\n",b);
+
+    return 0;
+}
+
+//占位符：%c字符   %d整形   %f浮点数    %s字符串   %p指针  %x16进制整数  %zu  size_t类型    %ld  %lu  %lld  %u  
+//prinf限定宽度
+#include <stdio.h>
+int main()
+{
+    printf("%5d\n",123);        //默认向右边对齐
+
+    return 0;
+}
+
+#include <stdio.h>
+int main()
+{
+    printf("%-5d\n",123);         //加上-就会向左对齐
+
+    return 0;
+}
+
+//printf限定小数点位数
+#include <stdio.h>
+int main()
+{
+    printf("it is %.2f\n",0.3);         //小数点后保留两位小数
+
+    return 0;
+}
+
+//scanf的应用
+#include <stdio.h>
+int main()
+{
+    int a;
+    scanf("%d\n",a);        //a前面需要有‘&’，不能省略    写入数据需要找到变量原始内存位置      数组，字符串不用加
+    scanf("%d\n",&a);
+    printf("score is %d",a);
+
+    return 0;
+}
+
+// scanf的返回值:表示成功读取变量的个数，ctrl+z可以提前结束输入 
+#include <stdio.h>
+int main()
+{
+    int a = 0;
+    int b = 0;
+    float f = 0.0f;
+    int r = scanf("%d %d %f",&a,&b,&f);
+    printf("a=%d b=%d f=%f\n",a,b,f);
+    print("r = %d\n",r);
+
+    return 0;
+}
+
+#include <stdio.h>
+
+int main()
+{
+    int name[11];            //数据类型为char
+
+    scanf("%s\n",name);           //scanf不能加\n
+    printf("%s",name);
+
+    return 0;
+}
+
+//scanf必须严格按照规定输入
+#include <stdio.h>
+int main()
+{
+    int year,month,day = 0,0,0;
+
+    scanf("%d-%d-%d",&year,&month,&day);
+    printf("%d %d %d",year,month,day);
+
+    return 0;
+}
+
+//循环读入：scanf返回值为-1(EOF)时表示读取结束，反正读取没有结束
+#include <stdio.h>
+int main()
+{
+    int a,b;
+
+    while(scanf("%d%d",&a,&b) != E0F)
+    {
+        PRINTF("A=%d,B=%d",a,b);
+    }
+    return 0;
+}
+
+//双目操作符：+，-，*，/，%取余   int x = 1+2   printf时候可以，a*a   
+//初始化：int a = 100     赋值：a = 100     复合赋值：a =a+1 或 a +=1
+//单目运算符：++ -- 前置后置
+//移位运算符：左移(左弃右补0)：a<<1 or 2 ...          右移（左用符号位填充，右弃）：>>(未定义行为，可能丢掉符号位)
+// 位操作符：&  |  ^  ~ 
+//关系运算符：> >= < <= == !=
+//逻辑运算符： && ||  ！
+//三目运算符：1？2：3   如果表达式1为真，则返回表达式2，否者返回表达式3
+//逗号表达式从左向右依次执行
+
+//if语句
+#include <stdio.h>
+int main()
+{
+    int n = 0;
+    scanf("%d",&n);
+    if (n >= 10)
+    {
+        printf("n >= 10\n");
+    }
+    else if(n >= 5)
+    {
+        printf("n >= 5 && n < 10");
+    }
+    else
+    {
+        printf("n < 5");
+    }
+    return 0;
+}
+
+//判断year是否闰年
+#include <stdio.h>
+int main()
+{
+    int year;
+    scanf("%d",&year);
+
+    if((year%4 == 0 && year%100 != 0)  || year%400 == 0)
+    {
+        printf("%d是闰年",year);
+    }
+    else
+    {
+        printf("%d不是闰年");
+    }
+    return 0;
+}
+
+//switch
+ int main()
+ {
+    int n;
+
+    scanf("%d",&n);
+
+    switch(n)                                   //n必须是整型表达式
+    {
+        case 1:
+            printf("匹配case one");
+            break;                             //break是跳出switch语句，防止继续执行下面的case，不可以省略
+        case 2:                                //case后面可以跟表达式，不能跟变量，中间要有空格
+            printf("匹配case two");
+            break;
+        case 3:
+            printf("匹配case three");
+            break;
+        default:
+            printf("未正确匹配");
+            break;
+    }
+    return 0;
+ }
+
+//while循环   while(循环条件)    while(i <= 10){... ...}  while循环是先判断条件再执行循环体
+//for循环   for(初始化表达式;循环条件;循环后操作){... ...}  for(i = 1;i <= 10;i++){... ...}
+/* for表达式1表达式2其实就是python里面的range函数，表达式3是循环里面的迭代操作*/
+//do while循环   do{... ...}while(循环条件)  do while循环是先执行循环体再判断条件
+#include <stdio.h>
+int main()
+{
+    int i = 1;
+    do
+    {
+        printf("%d\n",i);
+        i++;
+    }while(i <= 10);
+
+    return 0;
+}
+
+//break中断循环
+#include <stdio.h>
+int main()
+{
+    int i = 1;          //空格+符号+空格
+
+    while(i <=10)
+    {
+        if(i == 5)
+        {
+            break;
+        }
+        printf("%d\n",i);
+        i++;
+    }
+    return 0;
+}
+
+//continue跳过本次循环的剩余部分，继续下一次循环（上述程序改成continue会死循环）
+
+//数组：同一类型数据的集合，数组名是首元素地址，数组下标从0开始
+int main()        //数据类型 数组名[数组长度] = {元素1，元素2，元素3，...}
+{
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};        //数组初始化，数组长度为10，数组下标为0-9
+
+    printf("%d\n",arr[0]);       //输出数组第一个元素      for循环遍历数组（0变成循环里的递增参数）
+    printf("%d\n",arr[9]);       //输出数组最后一个元素
+    printf("%p\n",arr);         //输出数组首元素地址
+
+    return 0;
+}
+
+sizeof(arr)                   //计算数组字节大小
+sizeof(arr) / sizeof(arr[0])  //计算数组长度
+
+//数组逆序输出
+#include <stdio.h>
+int main()
+{
+    int i,j,z;
+    int arr[10];
+
+    printf("请输入一个数组:arr[10] = ");
+    for (i = 0; i < 10; i++)
+    {
+        scanf("%d",&arr[i]);
+        continue;
+        for(j = 9; j > 0; j--)
+        {
+            int z = arr[i];
+            int arr[i] = arr[j];
+            int arr[j] = z;
+            
+        }
+    }
+    printf("数组逆序输出为:arr[10] =%d",arr[i] );
+
+    return 0;
+
+
+}
+
