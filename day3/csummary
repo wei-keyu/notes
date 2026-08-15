@@ -324,8 +324,8 @@ int main()        //数据类型 数组名[数组长度] = {元素1，元素2，
     return 0;
 }
 
-sizeof(arr)                   //计算数组字节大小
-sizeof(arr) / sizeof(arr[0])  //计算数组长度
+//sizeof(arr)                   计算数组字节大小
+//sizeof(arr) / sizeof(arr[0])  计算数组长度
 
 //数组逆序输出
 #include <stdio.h>
@@ -353,4 +353,253 @@ int main()
 
 
 }
+
+//二维数组：数据类型 数组名[行数][列数] = {{元素1，元素2，元素3，...},{元素1，元素2，元素3，...},...}
+//可以省略行，不能省略列
+//遍历二维数组
+#include <stdio.h>
+int main()
+{
+    int arr[2][3] = {1,2,3,4,5,6};
+    int i,j;
+
+    for(i = 0; i < 2; i++)                 //也是从0开始计数，i是行，j是列
+    {
+        for(j = 0; j < 3; j++)
+        {
+            printf("%d ",arr[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+//函数的定义eg： int add(int a,int b)
+//函数的调用:
+#include <stdio.h>
+
+int add(int a,int b)
+{
+    return a + b;
+}
+
+int main()
+{
+    int a = 10;
+    int b = 12;
+    int sum = add(a,b);      //调用时参数个数，数据类型（sum的，a,b的，add的），顺序，返回值类型均匹配
+    printf("%d\n",sum);
+    return 0;
+}
+
+//完整正确步骤：
+#include <stdio.h>
+int main()
+{
+    int x,y;
+    int add(int a,int b)
+    {
+        return a + b;
+    }
+    printf("请输入两个整数：");
+    scanf("%d %d",&x,&y);
+    printf("两数的和为：%d\n",add(x,y));       //x,y是实参，a,b是形参
+    return 0;
+
+}
+//实参把值传递给形参，形参在函数体内使用，实参在函数外使用，实参和形参的值是相互独立的
+//数组作为函数的参数：   int add(int arr[],int n（通常为数组长度）)
+//编程技巧：嵌套调用和链式访问
+//求数字n的阶乘和（嵌套调用）   fac_sum{sum += fac(i) ... ...}      在定义一个函数时用到了另一个定义过的函数
+//链式访问：将一个函数的返回值作为另一个函数的参数传递给另一个函数   int 变量 = 函数1(函数2(实参))
+
+//  static关键字：用于修饰局部变量，静态局部变量在函数调用结束后不会被释放，下一次调用时仍然存在
+//  extern关键字：用于声明一个全局变量在其他文件中定义，extern关键字告诉编译器该变量在其他文件中定义
+//static将储存在内存的栈区储存到了静态区，储存在静态区的变量和全局变量是一样的，即该面馆了变量的生命周期，直到程序结束才会释放
+#include <stdio.h>
+int text()
+{
+    static int i = 0;
+    i++;
+    printf("%d\n",i);
+}
+int main()
+{
+    int i = 0;
+    for(i = 0; i < 5; i++)
+    {
+        text();
+    }
+
+    return 0;
+}       //看看有无static关键字的区别
+
+//extern用来声明外部符号，如果在一个文件中定义了一个全局变量，在另一个文件中使用该变量时，需要使用extern关键字来声明该变量
+//当static作用在全局变量，static关键字会覆盖extern关键字的作用，使得该变量只能在当前文件中使用，无法在其他文件中访问
+
+
+//函数递归：   递归中递的出口   递归的结束条件   递归的公式（每次递减1）
+#include <stdio.h>
+int fac(int n)
+{
+    if(n == 0)                          //递归结束条件
+    {
+        return 1;                       //递的出口
+    }
+    else
+    {
+        return n * fac(n - 1);         //递归公式
+    }
+}
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    printf("%d\n",fac(n));
+    return 0;
+}
+//计算1+2+3+...+n的和
+#include <stdio.h>
+int sum(int i)
+{
+    if(i == 1)          //递归到1结束
+    {
+        return 1;       //返回1，开始归
+    }
+    else
+    {
+        return i + sum(i - 1);
+    }
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    printf("%d\n",sum(n));
+    return 0;
+}
+
+//指针      int *p = &i;      //定义一个整形的指针变量p，他储存了i的地址         数据类型*  可以定义指针变量    &获取地址
+int main()
+{
+    int a = 10;
+    int *p = &a;
+
+    printf("%p\n",&a);
+    printf("%p\n",p);
+    printf("%d\n",*p);        //解引用，获取指针指向的变量的值
+
+    *p = 20;
+    printf("%d\n",a);        //通过指针修改变量的值
+
+    return 0;
+}
+//指针变量的大小和类型无关，32位下为4字节，64位下为8字节
+//指针的运算：指针变量可以进行加减运算，指针变量可以进行比较运算，指针变量可以进行自增自减运算
+//指针加减整数   *(p + 1)可以应用于对数组的打印
+//指针 - 指针：int *p1 = arr[1];   int *p2 = arr[2];   printf("%d\n",p2 - p1);
+#include <stdio.h>
+int main()
+{
+    int arr[] = {1,2,3,4,5};
+    int *p = arr;
+    int sz = sizeof(arr)/sizeof(arr[0]);
+    while(p < arr + sz)
+    {
+        printf("%d\n",*p);
+        p++;
+
+    }
+    return 0;
+}
+
+int const *p;   //对p指针所指向内存内储存的值进行限制，不允许其修改
+int *const p;   //
+
+//野指针: 指针指向的位置不可知（指针未初始化，指针指向范围超出数组范围，指针指向的空间被释放return &n）
+//若不知道指针指向哪里可以赋值NULL（标识符常量，值是0，地址也是0，该地址无法使用，使用会报错）
+//指针变量不在使用时，及时置NULL，指针使用之前检查有效性
+int main()
+{
+    int arr[] = {1,2,3,4,5};
+    int *p = arr;
+    int i = 0;
+    for(i = 0;i < 5;i++)
+    {
+        *(p++) = i;
+    }
+    //循环完成后p已经越界，可以把p置为NULL
+    p = NULL;
+    //下次使用时，判断p不为NULL的时候再使用
+    p = arr;
+    if(p != NULL)
+    {
+        //...
+    }
+    return 0;
+}
+
+//assert断言：在运行时确保程序符合指定条件，如果不符合，就报错终止运行
+// assert(p != NULL);     如果不等于会继续运行，反正会终止报错
+
+//  strlen()求字符串长度,统计的是字符串中\0之前的字符的个数，只要不是\0，计数器就加1
+int my_strlen(const char *str)     //定义函数
+{
+    int a = 0;
+    assert(str);             //
+    while(*str)              //将str化为数组，并借助指针加减来使str的长度用a呈现
+    {
+        a++;
+        str++;
+    }
+    return a;                //需要的是a的值
+}
+int main()
+{
+    int len = my_strlen("abc");        //结果为3
+    printf("%d\n",len);
+    return 0;
+}
+
+//传值调用：
+#include <stdio.h>
+void swap1(int a,int b)
+{
+    int tmp = a;
+    a = b;
+    b =tmp;
+}
+int main()
+{
+    scanf("%d%d",&x,&y);
+    swap1(x,y);
+    printf("x = %d,y = %d\n",x,y);
+    return 0;
+}        //发现并没有调换成功（实参传递给形参，形参会创建临时空间来接收实参，对形参的修改不影响实参），该功能应该用到指针定位他们的位置进行修改
+#include <stdio.h>
+void swap2(int *px,int *py)
+{
+    int tmp = *px;           //int tmp = 0;  tmp = *px;
+    *px = *py;
+    *py = tmp;
+}
+int main()
+{
+    int a,b;
+    scanf("%d%d",&a,&b);       //&d %d
+    swap2(a,b);
+    printf("%d%d\n",a,b);     //%d %d
+    return 0;
+}           //函数的参数变成了更根源的变量的地址，调用会更加精确
+
+//  &arr[0] = arr     都用%p打印       数组名就是数组首元素的地址
+//  &arr  整个数组的地址
+#include <stdio.h>
+int main()
+{
+    
+}
+
 
