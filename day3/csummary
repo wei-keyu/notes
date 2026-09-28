@@ -599,7 +599,94 @@ int main()
 #include <stdio.h>
 int main()
 {
-    
+    int arr[] = {1,2,3,4};
+    int *p = arr;
+
+    printf("%d\n",*(p+1));            //2
+    printf("%d\n",*(arr+1));          //2
+    printf("%d\n",*(p+2));            //3
+    printf("%d\n",*(arr+2));          //3 
+    return 0;
+}
+//在数组中运用指针其实就是指针的加减int *p = arr;   printf("%d\n",*(p + 1));   按要求加入循环或者for结构，考虑循环次数（通常为数组长度）
+#include <stdio.h>
+void text1(int *p,int len)
+{
+    for(int i = 0;i < len;i++)
+    {
+        printf("%d\n",*(p + i));
+    }
+}
+int main()
+{
+    arr[] = {1,2,3,4};      //数组定义时候要声明数据类型int arr[]
+    int *p = arr;
+    int len = sizeof(arr)/sizeof(arr[0]);         //数组的定义和数组长度的计算要写在一起
+    int text1(*p,len);     //此时不需要数据类型，不能再次声明
+
+    return 0;
 }
 
+//  void test(int arr[]) 和 void test(int *arr)  是等价的           以上是一维数组传参的两种写法
+int main()
+{
+   int a = 10;
+   int *p1 = &a;          //定义了一个数据类型为整型的一级指针变量，他储存相同数据类型a的地址，同时也有自己的地址
+   int **p2 = &p1;        //定义了一个数据类型为整型的二级指针变量，他储存一级指针的地址
+   printf("%d\n",*p2);    //对p2这个二级指针进行解引用，输出p1的储存内容，即a的地址
+   printf("%d\n",**p2);   //输出p1指向的内存中所储存的内容，即变量a的值
+   printf("%d\n",*p1);    //对p1进行解引用，输出p1所存的变量的值
+}
 
+//指针数组：他是存放指针的数组   int *arr[];
+int a = 10;
+int b = 20;
+int c = 30;
+int *arr[] = {&a,&b,&c};        //数组里面的每个元素都是整型指针，数组初始化时储存了变量abc的内存地址
+printf("%d\n",*(arr + 1));      //arr+1等同于arr[1]   *(arr+1)解引用，取出arr[1]的值，即b的地址
+printf("%d\n",**(arr + 1));     //接上一步对b的地址进行解引用，得到b的值
+
+//数组指针：  指向数组的指针    数据类型 (*指针名)[数组长度]   int (*p)[4]
+int main()
+{
+    int arr[4] = {1,2,3,4};
+    int (*p)[4] = &arr;             //数组指针，专门指向长度为4的整形类型的数组，p存放整个数组的地址
+    printf("%d\n",*p);              //   *p等价于数组arr的首元素地址
+    printf("%d\n",(*p)[1]);         //   (*p)[1]等价于arr[1]
+    return 0;
+}
+
+//函数指针：函数名就表示函数的地址（%p打印），或者&函数名也行   创建函数指针变量可以将函数地址存放起来
+int test()
+{
+    //...
+}
+int (*pf1)() = &test;
+int (*Pf2)() = test;
+//或
+int add(int x,int y)
+{
+    //...
+}
+int (*pf3)(int,int) = add;
+int (*pf4)(int x,int y)() = &add;
+//函数指针变量的使用：通过他可以调用指向的函数
+printf("%d\n",(*pf3)(2,3));
+printf("%d\n",pf3(2,3));
+
+//p.137字符分类函数
+//p.155大小端字节序
+//p.159  c语言内存函数
+
+//结构体：将多个不同类型的数据组合在一起，形成一个整体。这些变量被称为结构体的成员
+//struct 结构体名{数据类型 成员名1; 数据类型 成员名2; ...}
+struct tag
+{
+    char name[20];
+    int age;
+    char sex[5];
+};                         //结构体是以分号结尾的，添加变量时也需要加分号
+//结构体变量初始化
+struct tag s1 = {"张三",20,"男"};      //变量1  (按照顺序赋值)
+struct tag s2 = {.age = 30,.name = "李四",.sex = "女"};      //变量2(不按照顺序赋值)
+printf("%s\n",s1.name);
